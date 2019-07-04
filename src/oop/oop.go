@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
+// interface 支持
 type shape interface {
     area() int
 }
@@ -12,6 +14,10 @@ type shape interface {
 type Rectangle struct {
 	length int
 	width  int
+}
+
+type Circle struct {
+    radius int
 }
 
 // 任意的内置类型都可以衍生出自定义类型
@@ -31,6 +37,18 @@ type some struct {
 // Receiver是值类型，即是一个拷贝，也可以是指针类型
 func (r Rectangle) area() int {
 	return r.length * r.width
+}
+
+func (c Circle) area() int {
+    return 3 * c.radius
+}
+
+func (r Rectangle) String() string {
+    return "this is rectangle"
+}
+
+func (c Circle) String() string {
+    return "the radius of circle is " + strconv.Itoa(c.radius)
 }
 
 // 如果使用指针，method内部不强制用*做转换，调用时也不强制&转换，go内部帮转
@@ -100,6 +118,21 @@ func main() {
 	t.SayHi()
 	
 	var myShape shape
-	myShape = Rectangle{5, 10}
+	myShape = Rectangle{5, 10} // Rectangle 实现了 shape 接口
 	fmt.Println(myShape.area())
+	
+	myShape = Circle{10} // Circle 实现了 shape 接口
+	fmt.Println(myShape.area())
+	
+	value, ok := myShape.(Circle)
+	if ok {
+	    fmt.Println(value)
+	}
+	
+	// myShape.(type) 只能用在switch语句
+	switch value := myShape.(type) {
+	    case Rectangle : fmt.Println(value)
+	    case Circle : fmt.Println(value)
+	    default : fmt.Println("unknown")
+	}
 }
