@@ -24,7 +24,7 @@ func main() {
     fmt.Println(i)
     
     p := Person {"ben", 20}
-    pr := reflect.ValueOf(&p) // 反射必须是公共类型私有类型（首字母小写）反射失败， struct 类型必须用指针
+    pr := reflect.ValueOf(&p) // 反射必须是公共类型, 私有类型（首字母小写）反射失败， struct 类型必须用指针
     fieldName := pr.Elem().Type().Field(0).Name
     fmt.Println(fieldName)
 }

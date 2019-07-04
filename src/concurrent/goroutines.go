@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"runtime"
 )
 
 func Say(x string) {
 	for i := 0; i < 5; i++ {
-		time.Sleep(100 * time.Millisecond)
+		runtime.Gosched() // 停顿片刻，让出CPU资源给其他goroutine使用
 		fmt.Println(x)
 	}
 }
