@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+type shape interface {
+    area() int
+}
+
 // struct是一种类型，Rectangle是自定义类型。
 type Rectangle struct {
 	length int
@@ -94,4 +98,8 @@ func main() {
 
 	t := teacher{person{"ann", 20, "9999999"}, "IT"}
 	t.SayHi()
+	
+	var myShape shape
+	myShape = Rectangle{5, 10}
+	fmt.Println(myShape.area())
 }
