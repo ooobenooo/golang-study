@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func throwPanic() {
-	panic("a panic")
+	panic("a panic") // 抛出异常
 }
 
 func main() {
@@ -50,13 +50,14 @@ func test() {
 	// 正常状态下recover的值是nil
 	// 出现panic,函数终止执行defer声明的函数
 	// 不会继续函数
+	// recover相当于catch
 	defer func() {
-		if p := recover(); p != nil {
+		if p := recover(); p != nil { 
 			fmt.Println("catch a panic")
 		}
 	}()
 
-	throwPanic()          // 出现panic的地方，函数的调用已经终止，和java的try...catch有区别
+	throwPanic()          // 出现panic的地方，函数的调用已经终止
 	fmt.Println("go on?") // 不会打印
 }
 

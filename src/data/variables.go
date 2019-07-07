@@ -5,7 +5,7 @@ import "fmt" // 导入包
 // golang, 首字母大写的变量和方法是公共的，首字母小写的变量和方法是私有的
 
 // 全局变量只能用var定义，不支持简单声明, 全局变量声明不使用不报错
-var globalVariable int = 1 
+var globalVariable int = 1
 
 // const 用于常量声明
 const pi = 3.14
@@ -18,7 +18,7 @@ const (
 	q
 )
 
-func main()  {
+func main() {
 	// 简短声明，只能在函数内部使用。
 	// 局部变量声明必须使用，否则编译错误
 	a := 18
@@ -37,7 +37,7 @@ func main()  {
 	// var e int32 = c + d 编译错误
 
 	// 支持复数
-	var f complex64 = 5+5i
+	var f complex64 = 5 + 5i
 	fmt.Printf("Value is %v\n", f)
 
 	// String 不可变
@@ -79,7 +79,7 @@ func main()  {
 	ss = arr[:2] // 取arr的0-1的元素创建新数组，ss指向新数组
 	fmt.Printf("slice is ref type, base array, slice[0] is %d\n", ss[0])
 
-	ss = []int {2,3,4,5} // slice可以改变数组长度
+	ss = []int{2, 3, 4, 5} // slice可以改变数组长度
 	fmt.Println(ss)
 
 	var ss1 []int = arr[:2]
@@ -87,7 +87,7 @@ func main()  {
 
 	fmt.Println(arr)
 
-	ss1[0] = 2 // slice是引用，改变了slice元素的值，会对原来数组的数据同时改变
+	ss1[0] = 2       // slice是引用，改变了slice元素的值，会对原来数组的数据同时改变
 	fmt.Println(ss1) // ss1[0] = 2
 	fmt.Println(ss2) // ss2[0] = 2
 	fmt.Println(arr) // arr[0] = 2
@@ -103,19 +103,24 @@ func main()  {
 	fmt.Println(ss2)
 	fmt.Println(arr)
 
+	svs := make([]*string, 4)
+	param := "world"
+	svs[0] = &param
+	fmt.Println("hello", *svs[0])
+
 	// map
 	// map也是引用类型
 	var m map[string]int = make(map[string]int)
 	m["ten"] = 10
 	fmt.Println(m["ten"])
 
-	var mm map[string]int // 声明一个map
+	var mm map[string]int     // 声明一个map
 	mm = make(map[string]int) // 初始化，创建一个map对象
 	mm["first"] = 100
 	fmt.Println(mm["first"])
 
 	v, ok := mm["second"] // key 不存在 ok = false
-	if (ok) {
+	if ok {
 		fmt.Println(v)
 	} else {
 		fmt.Println("second is not exists.")
@@ -132,7 +137,7 @@ func main()  {
 	fmt.Println(cap(sss))
 
 	var ssss []int
-	if (ssss == nil) {
+	if ssss == nil {
 		fmt.Println("ssss is nil")
 	}
 
