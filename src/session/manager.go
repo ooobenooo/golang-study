@@ -31,3 +31,11 @@ func NewManager(providerName string, cookieName string, maxLifeTime int64) (*Man
     return &Manager{cookieName: cookieName, provider: provider, maxLifeTime: maxLifeTime}, nil
 }
 
+func (manager *Manager) sessionId() string{
+    b := make([]byte, 32)
+    if _, err := io.ReadFull(rand.Reader, b); err != nil {
+        return ""
+    }
+    
+    return base64.URLEncoding.EncodeToString(b)
+}
