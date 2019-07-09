@@ -11,12 +11,6 @@ import (
 	"time"
 )
 
-var GlobalSessions *Manager
-
-func init() {
-	GlobalSessions, _ = NewManager("memory", "gSessionId", 3600)
-}
-
 // go没有标准Session，需自己实现或用第三方库
 // 定义一个Session管理器的数据结构
 type Manager struct {
@@ -97,4 +91,12 @@ func (manager *Manager) SessionDestroy(w http.ResponseWriter, r *http.Request) {
 			HttpOnly: true, Expires: expiration, MaxAge: -1}
 		http.SetCookie(w, &cookie)
 	}
+}
+
+// 垃圾回收
+func (manager *Manager) GC(){
+    manager.lock.Lock()
+    defer manager.lock.Unlock()
+    manager.provider.SessionGC(manager.maxLifeTime)
+    time.AfterFunc(time.Duration(manager.maxLifeTime), func() {manager.GC()})
 }
