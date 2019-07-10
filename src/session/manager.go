@@ -94,9 +94,9 @@ func (manager *Manager) SessionDestroy(w http.ResponseWriter, r *http.Request) {
 }
 
 // 垃圾回收
-func (manager *Manager) GC(){
-    manager.lock.Lock()
-    defer manager.lock.Unlock()
-    manager.provider.SessionGC(manager.maxLifeTime)
-    time.AfterFunc(time.Duration(manager.maxLifeTime), func() {manager.GC()})
+func (manager *Manager) GC() {
+	manager.lock.Lock()
+	defer manager.lock.Unlock()
+	manager.provider.SessionGC(manager.maxLifeTime)
+	time.AfterFunc(time.Duration(manager.maxLifeTime), func() { manager.GC() })
 }
