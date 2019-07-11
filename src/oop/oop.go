@@ -1,13 +1,14 @@
 package main
 
 import (
+	"container/list"
 	"fmt"
 	"strconv"
 )
 
 // interface 支持
 type shape interface {
-    area() int
+	area() int
 }
 
 // struct是一种类型，Rectangle是自定义类型。
@@ -17,7 +18,7 @@ type Rectangle struct {
 }
 
 type Circle struct {
-    radius int
+	radius int
 }
 
 // 任意的内置类型都可以衍生出自定义类型
@@ -40,15 +41,15 @@ func (r Rectangle) area() int {
 }
 
 func (c Circle) area() int {
-    return 3 * c.radius
+	return 3 * c.radius
 }
 
 func (r Rectangle) String() string {
-    return "this is rectangle"
+	return "this is rectangle"
 }
 
 func (c Circle) String() string {
-    return "the radius of circle is " + strconv.Itoa(c.radius)
+	return "the radius of circle is " + strconv.Itoa(c.radius)
 }
 
 // 如果使用指针，method内部不强制用*做转换，调用时也不强制&转换，go内部帮转
@@ -73,6 +74,10 @@ type student struct {
 type teacher struct {
 	person
 	subject string
+}
+
+type hi interface {
+	SayHi()
 }
 
 // 方法可以重写
@@ -116,23 +121,33 @@ func main() {
 
 	t := teacher{person{"ann", 20, "9999999"}, "IT"}
 	t.SayHi()
-	
+
 	var myShape shape
 	myShape = Rectangle{5, 10} // Rectangle 实现了 shape 接口
 	fmt.Println(myShape.area())
-	
+
 	myShape = Circle{10} // Circle 实现了 shape 接口
 	fmt.Println(myShape.area())
-	
-	value, ok := myShape.(Circle)
+
+	value, ok := myShape.(Circle) // 类型转换，接口转为实现的类型
 	if ok {
-	    fmt.Println(value)
+		fmt.Println(value)
 	}
-	
+
 	// myShape.(type) 只能用在switch语句
 	switch value := myShape.(type) {
-	    case Rectangle : fmt.Println(value)
-	    case Circle : fmt.Println(value)
-	    default : fmt.Println("unknown")
+	case Rectangle:
+		fmt.Println(value)
+	case Circle:
+		fmt.Println(value)
+	default:
+		fmt.Println("unknown")
 	}
+
+	list := list.New()
+	list.PushBack(isaac)
+	element := list.Back()
+	element.Value.(hi).SayHi()
+
+	// var h *hi = &isaac 编译异常，指针不能用在接口上。
 }

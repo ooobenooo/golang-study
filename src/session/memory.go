@@ -66,7 +66,7 @@ func (p *MemoryProvider) SessionInit(sid string) (Session, error) {
 // 从内存中读取， 有则返回， 无则SessionInit
 func (p *MemoryProvider) SessionRead(sid string) (Session, error) {
 	if element, ok := p.sessions[sid]; ok {
-		return element.Value.(SessionStore), nil
+		return element.Value.(Session), nil
 	} else {
 		session, err := p.SessionInit(sid)
 		return session, err

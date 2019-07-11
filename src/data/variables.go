@@ -141,4 +141,14 @@ func main() {
 		fmt.Println("ssss is nil")
 	}
 
+	// 证明map的底层是指针的，函数的参数是副本，在方法中操作map副本，对原变量有作用
+	tm := make(map[string]int, 0)
+	testMap(tm, "hello", 10000)
+	if v, ok := tm["hello"]; ok {
+		fmt.Println(v)
+	}
+}
+
+func testMap(m map[string]int, key string, value int) {
+	m[key] = value
 }
