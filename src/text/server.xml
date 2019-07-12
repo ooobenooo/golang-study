@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<servers version="1.0">
+    <server>
+        <serverName>Server 1</serverName>
+        <serverIP>127.0.0.1</serverIP>
+    </server>
+    <server>
+        <serverName>Server 2</serverName>
+    </server>
+</servers>
