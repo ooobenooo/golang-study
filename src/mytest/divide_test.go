@@ -17,11 +17,3 @@ func TestDivideOne(t *testing.T) {
 		t.Log("pass")
 	}
 }
-
-func TestDivideZero(t *testing.T) {
-	if _, err := Divide(3, 0); err != nil {
-		t.Error("error")
-	} else {
-		t.Log("pass")
-	}
-}
